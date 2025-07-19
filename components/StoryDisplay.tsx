@@ -1,6 +1,17 @@
 
 import React, { useEffect, useRef } from 'react';
 
+type StorySegment = {
+  id: number | string;
+  author: 'user' | 'ai';
+  text: string;
+};
+
+interface StoryDisplayProps {
+  story: StorySegment[];
+  isLoading: boolean;
+}
+
 const TypingIndicator = () => (
   <div className="flex items-center space-x-2">
     <div className="w-2 h-2 bg-brand-accent rounded-full animate-pulse [animation-delay:-0.3s]"></div>
@@ -9,8 +20,8 @@ const TypingIndicator = () => (
   </div>
 );
 
-export const StoryDisplay = ({ story, isLoading }) => {
-  const endOfStoryRef = useRef(null);
+export const StoryDisplay: React.FC<StoryDisplayProps> = ({ story, isLoading }) => {
+  const endOfStoryRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     endOfStoryRef.current?.scrollIntoView({ behavior: 'smooth' });

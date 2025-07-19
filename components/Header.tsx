@@ -1,6 +1,3 @@
-
-import React from 'react';
-
 export const Header = () => {
   return (
     <header className="bg-gray-900/50 backdrop-blur-sm shadow-lg w-full p-4 border-b border-gray-700 sticky top-0 z-10">

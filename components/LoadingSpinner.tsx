@@ -1,6 +1,4 @@
 
-import React from 'react';
-
 export const LoadingSpinner = () => {
   return (
     <div className="flex justify-center items-center p-4">

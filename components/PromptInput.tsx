@@ -1,10 +1,16 @@
 
 import React, { useState } from 'react';
 
-export const PromptInput = ({ onSubmit, isLoading, hasStory }) => {
+interface PromptInputProps {
+  onSubmit: (prompt: string) => void;
+  isLoading: boolean;
+  hasStory: boolean;
+}
+
+export const PromptInput: React.FC<PromptInputProps> = ({ onSubmit, isLoading, hasStory }) => {
   const [prompt, setPrompt] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (prompt.trim() && !isLoading) {
       onSubmit(prompt);

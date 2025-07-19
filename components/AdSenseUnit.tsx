@@ -7,7 +7,14 @@ declare global {
   }
 }
 
-const AdSenseUnit = ({ slot, format = 'auto', responsive = true, className = '' }) => {
+interface AdSenseUnitProps {
+  slot: string | number;
+  format?: string;
+  responsive?: boolean;
+  className?: string;
+}
+
+const AdSenseUnit: React.FC<AdSenseUnitProps> = ({ slot, format = 'auto', responsive = true, className = '' }) => {
   const adRef = useRef<HTMLDivElement>(null);
   // Use a ref to track if the ad has been successfully pushed.
   const adPushedRef = useRef(false);
