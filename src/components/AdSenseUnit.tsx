@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
+import AdPlaceholder from './AdPlaceholder';
 
 // Extend the Window interface to include adsbygoogle for TypeScript compatibility.
 declare global {
@@ -8,68 +9,60 @@ declare global {
 }
 
 interface AdSenseUnitProps {
-  slot: string;
+  slot: string | number;
   format?: string;
   responsive?: boolean;
   className?: string;
+  showPlaceholder?: boolean;
 }
 
-const AdSenseUnit: React.FC<AdSenseUnitProps> = ({ slot, format = 'auto', responsive = true, className = '' }) => {
+const AdSenseUnit: React.FC<AdSenseUnitProps> = ({
+  slot,
+  format = 'auto',
+  responsive = true,
+  className = '',
+  showPlaceholder = false,
+}) => {
   const adRef = useRef<HTMLDivElement>(null);
-  // Use a ref to track if the ad has been successfully pushed.
   const adPushedRef = useRef(false);
 
-  // Memoize the ad-loading logic using useCallback.
   const attemptToLoadAd = useCallback(() => {
-    // Using requestAnimationFrame ensures that we check the element's dimensions
-    // after the browser has finished layout calculations, preventing race conditions.
     requestAnimationFrame(() => {
-      if (adPushedRef.current) {
-        return;
-      }
-      
-      // The crucial check: the container must exist and have a rendered width > 0.
-      // This directly prevents the "No slot size for availableWidth=0" error.
+      if (adPushedRef.current) return;
       if (adRef.current && adRef.current.clientWidth > 0) {
         try {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
-          // Mark that we've pushed an ad for this unit to prevent duplicates.
           adPushedRef.current = true;
         } catch (e) {
           console.error(`AdSense error for slot ${slot}:`, e);
         }
       }
     });
-  }, [slot]); // Dependency on `slot` ensures the function is updated if the slot prop changes.
+  }, [slot]);
 
   useEffect(() => {
-    // A simple debounce utility to prevent the ad load function from firing too rapidly on resize.
     let timeoutId: ReturnType<typeof setTimeout>;
     const debouncedLoad = () => {
       clearTimeout(timeoutId);
-      // A small delay gives the browser time to apply responsive styles and calculate layout.
       timeoutId = setTimeout(attemptToLoadAd, 200);
     };
-
-    // Attempt to load the ad when the component mounts.
     debouncedLoad();
-
-    // Also, listen for window resize events to handle responsive layout changes.
     window.addEventListener('resize', debouncedLoad);
-
-    // Cleanup function: remove the event listener and clear any pending timeout.
     return () => {
       window.removeEventListener('resize', debouncedLoad);
       clearTimeout(timeoutId);
     };
-  }, [attemptToLoadAd]); // The effect re-runs if `attemptToLoadAd` changes.
+  }, [attemptToLoadAd]);
 
   return (
-    <div ref={adRef} className={`ad-container ${className}`} aria-label="Advertisement">
+    <div ref={adRef} className={`ad-container relative ${className}`} aria-label="Advertisement">
+      {showPlaceholder && (
+        <AdPlaceholder className="absolute inset-0 z-0" />
+      )}
       <ins
         className="adsbygoogle"
-        style={{ display: 'block' }} // AdSense requires 'display: block'.
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // This should be your publisher ID.
+        style={{ display: 'block' }}
+        data-ad-client="ca-pub-3882845778136393"
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive={responsive.toString()}

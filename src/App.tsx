@@ -107,8 +107,8 @@ const App = () => {
           {/* Left Ad Panel (Desktop Only) */}
           <aside className="hidden lg:block lg:col-span-1 space-y-8 pt-16">
             {/* TODO: Replace XXXXXXXXXX with your AdSense Ad Slot ID */}
-            <AdSenseUnit slot="XXXXXXXXXX" className="h-64 bg-paper rounded-lg border border-subtle-border" />
-            <AdSenseUnit slot="XXXXXXXXXX" className="h-64 bg-paper rounded-lg border border-subtle-border" />
+            <AdSenseUnit slot="9818995672" className="h-64 bg-paper rounded-lg border border-subtle-border" />
+            <AdSenseUnit slot="9818995672" className="h-64 bg-paper rounded-lg border border-subtle-border" />
           </aside>
   
           {/* Main Content */}
@@ -139,14 +139,14 @@ const App = () => {
           {/* Right Ad Panel (Desktop Only) */}
           <aside className="hidden lg:block lg:col-span-1 space-y-8 pt-16">
             {/* TODO: Replace XXXXXXXXXX with your AdSense Ad Slot ID */}
-            <AdSenseUnit slot="XXXXXXXXXX" className="h-64 bg-paper rounded-lg border border-subtle-border" />
-            <AdSenseUnit slot="XXXXXXXXXX" className="h-64 bg-paper rounded-lg border border-subtle-border" />
+            <AdSenseUnit slot="9818995672" className="h-64 bg-paper rounded-lg border border-subtle-border" />
+            <AdSenseUnit slot="9818995672" className="h-64 bg-paper rounded-lg border border-subtle-border" />
           </aside>
 
           {/* Mobile Ad (Mobile Only) */}
           <div className="lg:hidden w-full mt-4">
             {/* TODO: Replace XXXXXXXXXX with your AdSense Ad Slot ID */}
-            <AdSenseUnit slot="XXXXXXXXXX" className="h-48 bg-paper rounded-lg border border-subtle-border" />
+            <AdSenseUnit slot="9818995672" className="h-48 bg-paper rounded-lg border border-subtle-border" />
           </div>
 
         </div>
